@@ -184,6 +184,7 @@ namespace QSenseExamples
 
         private void Dongle_SensorDisconnected(object sender, ConnectionEventArgs e)
         {
+            numberDevices--;
             string logMessage = $"Sensor at index {e} disconnected";
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(logMessage);
@@ -194,6 +195,7 @@ namespace QSenseExamples
 
         private void Dongle_SensorConnected(object sender, ConnectionEventArgs e)
         {
+            numberDevices++;
             string logMessage = $"Sensor at index {e} connected";
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(logMessage);
