@@ -63,7 +63,7 @@ namespace QSenseExamples
 #endif
                                 byte[] coreInterfacePacket = new byte[dataBuffer.Count - 1];
                                 Array.Copy(dataBuffer.ToArray(), 1, coreInterfacePacket, 0, dataBuffer.Count - 1);
-                                QSenseExamples.CoreInterfaceParser.ParsePacket();
+                                QSenseExamples.CoreInterfaceParser.ParsePacket(coreInterfacePacket);
                                 break;
                             default:
                                 break;
