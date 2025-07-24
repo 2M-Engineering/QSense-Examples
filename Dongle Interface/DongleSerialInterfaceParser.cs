@@ -35,6 +35,7 @@ namespace QSenseExamples
             packet += MAX_NODES.ToString("X2");
             byte[] buffer = ASCIIEncoding.ASCII.GetBytes(DEVICE_NAME);
             foreach (byte b in buffer) packet += b.ToString("X2");
+            packet += POSTFIX;
             return packet;
         }
 
