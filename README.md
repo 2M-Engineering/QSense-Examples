@@ -4,14 +4,14 @@ This repository contains code examples to help you integrate the **QSense wearab
 
 ## Sensor Interfaces
 
-This folder contains **C# examples** demonstrating how to work with the QSense Sensor interfaces. These examples show how to:
+This folder contains **C# examples** and **Python examples** demonstrating how to work with the QSense Sensor interfaces. These examples show how to:
 
 - Create Core and Serial interface packets.
 - Parse incoming packets from the QSense sensors.
 
 ## Dongle Interface
 
-This folder includes a **C# example** illustrating how to implement the **Dongle Serial interface** for communicating with QSense devices.
+This folder includes a **C# example** and **Python examples** illustrating how to implement the **Dongle Serial interface** for communicating with QSense devices.
 
 ## C# APIs
 
