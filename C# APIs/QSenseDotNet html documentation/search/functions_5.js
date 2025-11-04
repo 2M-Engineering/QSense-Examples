@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['setaccsensitivity_0',['SetAccSensitivity',['../class_q_sense_dot_net_1_1_device.html#a16d3e7c6a10a11fc587e3a0655e8bdac',1,'QSenseDotNet::Device']]],
+  ['setalgorithm_1',['SetAlgorithm',['../class_q_sense_dot_net_1_1_device.html#a8d573881f9c04b720e84ba0866b0a662',1,'QSenseDotNet::Device']]],
+  ['setannotation_2',['SetAnnotation',['../class_q_sense_dot_net_1_1_device.html#a292b1a7befd3a2739074edcce47e4169',1,'QSenseDotNet::Device']]],
+  ['setdatabuffering_3',['SetDataBuffering',['../class_q_sense_dot_net_1_1_device.html#ae1a42581a557e86637bb6d5912fc28a0',1,'QSenseDotNet::Device']]],
+  ['setdatamode_4',['SetDataMode',['../class_q_sense_dot_net_1_1_device.html#a7f07a25ff4f074cc07f9b72924ad9d8d',1,'QSenseDotNet::Device']]],
+  ['setdevicename_5',['SetDeviceName',['../class_q_sense_dot_net_1_1_device.html#a6d39d4426c6b6235a8f7dfa1a7ce1086',1,'QSenseDotNet::Device']]],
+  ['setgyrsensitivity_6',['SetGyrSensitivity',['../class_q_sense_dot_net_1_1_device.html#a6ec0ed669cde7d266754606c6f49e21f',1,'QSenseDotNet::Device']]],
+  ['setledanimation_7',['SetLEDAnimation',['../class_q_sense_dot_net_1_1_device.html#a7d7ca99e5421c36426f926dad920eca1',1,'QSenseDotNet::Device']]],
+  ['setsamplingrate_8',['SetSamplingRate',['../class_q_sense_dot_net_1_1_device.html#a0ef76848db18322bfbbc6000c9307457',1,'QSenseDotNet::Device']]],
+  ['setsensorconfig_9',['SetSensorConfig',['../class_q_sense_dot_net_1_1_device.html#a38bff8b21b9f161d7c2e3e8df0dd1e40',1,'QSenseDotNet::Device']]],
+  ['startmagfieldmapping_10',['StartMagFieldMapping',['../class_q_sense_dot_net_1_1_device.html#afa9da40b777e077cbf41d36e66b98f7e',1,'QSenseDotNet::Device']]],
+  ['startoffsetcompensation_11',['StartOffsetCompensation',['../class_q_sense_dot_net_1_1_device.html#ac4fb8d7ade1ff3a9e2d77724b8a08fe5',1,'QSenseDotNet::Device']]],
+  ['startstreaming_12',['StartStreaming',['../class_q_sense_dot_net_1_1_device.html#a48bc4844b6130e15b5c311eabec14746',1,'QSenseDotNet::Device']]],
+  ['startsync_13',['StartSync',['../class_q_sense_dot_net_1_1_device.html#af129062141eb149db06b352dbc3d16c5',1,'QSenseDotNet::Device']]],
+  ['statereceivedeventhandler_14',['StateReceivedEventHandler',['../namespace_q_sense_dot_net.html#adef0cf7f7bb0f37841ec6e3ce3439c14',1,'QSenseDotNet']]],
+  ['stopmagfieldmapping_15',['StopMagFieldMapping',['../class_q_sense_dot_net_1_1_device.html#a893ba34d16588a693c5c27d18322250d',1,'QSenseDotNet::Device']]],
+  ['stopstreaming_16',['StopStreaming',['../class_q_sense_dot_net_1_1_device.html#ade47989f430f4a27a3d644a90b5c518c',1,'QSenseDotNet::Device']]],
+  ['stopsync_17',['StopSync',['../class_q_sense_dot_net_1_1_device.html#a8810425ef64b59f52ba214aea568b55b',1,'QSenseDotNet::Device']]],
+  ['streampacketreceivedeventhandler_18',['StreamPacketReceivedEventHandler',['../namespace_q_sense_dot_net.html#a57dde9f57d3fd545bf2d526e8876ea1a',1,'QSenseDotNet']]]
+];

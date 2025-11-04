@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['mag_0',['Mag',['../class_q_sense_dot_net_1_1_stream_packet_received_event_args.html#a08e09898c5c3abd7271e3e0987f6a602',1,'QSenseDotNet::StreamPacketReceivedEventArgs']]],
+  ['magfieldmapped_1',['MagFieldMapped',['../class_q_sense_dot_net_1_1_device.html#a52bbfd5b1be28d495de255ca180ac003',1,'QSenseDotNet::Device']]],
+  ['magfieldmappingdone_2',['MagFieldMappingDone',['../class_q_sense_dot_net_1_1_device.html#aecab4281a0d5e77def1539a6cdd54eea',1,'QSenseDotNet::Device']]],
+  ['magfieldmappingprogress_3',['MagFieldMappingProgress',['../class_q_sense_dot_net_1_1_device.html#aad5e224e28804dbd8dd3f5f8a74bdb84',1,'QSenseDotNet.Device.MagFieldMappingProgress'],['../class_q_sense_dot_net_1_1_state_received_event_args.html#adc58ccf0a20b33beede21ba3ae1b282a',1,'QSenseDotNet.StateReceivedEventArgs.MagFieldMappingProgress']]],
+  ['magfieldmapquality_4',['MagFieldMapQuality',['../class_q_sense_dot_net_1_1_state_received_event_args.html#ade905dde1d5b180dd36508e5c268bd73',1,'QSenseDotNet.StateReceivedEventArgs.MagFieldMapQuality'],['../namespace_q_sense_dot_net.html#ae9dfa487b3b84972ff8e3d35e5bdcac0',1,'QSenseDotNet.MagFieldMapQuality']]],
+  ['maginterference_5',['MagInterference',['../namespace_q_sense_dot_net.html#a6080e80df739f59d8733b1b4d5e12105',1,'QSenseDotNet']]],
+  ['magneticfieldmappingon_6',['MagneticFieldMappingOn',['../class_q_sense_dot_net_1_1_device.html#a7d1034a90a428b67be836078a4d6f222',1,'QSenseDotNet::Device']]],
+  ['marker_7',['Marker',['../class_q_sense_dot_net_1_1_stream_packet_received_event_args.html#a64e8cb9c7c7bbc469905dafd44899204',1,'QSenseDotNet::StreamPacketReceivedEventArgs']]],
+  ['maxpacketsize_8',['MaxPacketSize',['../class_q_sense_dot_net_1_1_device.html#ad6da592352c52d87763f968dc6b37185',1,'QSenseDotNet::Device']]],
+  ['memmap_2ecs_9',['MemMap.cs',['../_mem_map_8cs.html',1,'']]],
+  ['memoryacceswasdisabled_10',['MemoryAccesWasDisabled',['../class_q_sense_dot_net_1_1_device.html#a20f38e6510a521422badef196ae141a2',1,'QSenseDotNet::Device']]],
+  ['mixed_11',['Mixed',['../namespace_q_sense_dot_net.html#aa28e189ef2e634b020e60ea060f73bc8a699b4f79215d191584653efebf156e52',1,'QSenseDotNet']]],
+  ['mode_12',['Mode',['../class_q_sense_dot_net_1_1_device.html#a04f7fcd1fdec7105eee6a278339b7af4',1,'QSenseDotNet::Device']]],
+  ['motionlevel_13',['MotionLevel',['../class_q_sense_dot_net_1_1_device.html#a3b1132c31616fa4ab92a90f3d1e172f6',1,'QSenseDotNet.Device.MotionLevel'],['../class_q_sense_dot_net_1_1_motion_level_received_event_args.html#a84898275670f947b40940ba61b091e86',1,'QSenseDotNet.MotionLevelReceivedEventArgs.MotionLevel']]],
+  ['motionlevelreceived_14',['MotionLevelReceived',['../class_q_sense_dot_net_1_1_device.html#a53e58e862e010f808bb5ca5355e6f3a5',1,'QSenseDotNet::Device']]],
+  ['motionlevelreceivedeventargs_15',['MotionLevelReceivedEventArgs',['../class_q_sense_dot_net_1_1_motion_level_received_event_args.html',1,'QSenseDotNet']]],
+  ['motionlevelreceivedeventhandler_16',['MotionLevelReceivedEventHandler',['../namespace_q_sense_dot_net.html#ac10eb10326611a6ca52b07485f511913',1,'QSenseDotNet']]]
+];
