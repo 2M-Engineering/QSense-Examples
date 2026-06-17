@@ -1,0 +1,20 @@
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\bin\Release\netstandard2.1\QSenseDotNet.deps.json
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\bin\Release\netstandard2.1\QSenseDotNet.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\bin\Release\netstandard2.1\QSenseDotNet.pdb
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.AssemblyInfoInputs.cache
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.AssemblyInfo.cs
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.csproj.CoreCompileInputs.cache
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.sourcelink.json
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.pdb
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\bin\Release\netstandard2.1\QSenseDotNet.deps.json
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\bin\Release\netstandard2.1\QSenseDotNet.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\bin\Release\netstandard2.1\QSenseDotNet.pdb
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.AssemblyInfoInputs.cache
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.AssemblyInfo.cs
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.csproj.CoreCompileInputs.cache
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.sourcelink.json
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\obj\Release\netstandard2.1\QSenseDotNet.pdb

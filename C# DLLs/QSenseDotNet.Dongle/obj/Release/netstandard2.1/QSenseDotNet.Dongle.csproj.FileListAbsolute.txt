@@ -1,0 +1,14 @@
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\QSenseDotNet.Dongle.deps.json
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\QSenseDotNet.Dongle.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\QSenseDotNet.Dongle.pdb
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\QSenseDotNet.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\QSenseDotNet.pdb
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.csproj.AssemblyReference.cache
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.AssemblyInfoInputs.cache
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.AssemblyInfo.cs
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.csproj.CoreCompileInputs.cache
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.sourcelink.json
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDo.653A89E4.Up2Date
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\obj\Release\netstandard2.1\QSenseDotNet.Dongle.pdb

@@ -1,0 +1,3 @@
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\bin\Release\netstandard2.1\publish\QSenseDotNet.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\bin\Release\netstandard2.1\publish\QSenseDotNet.deps.json
+C:\Users\jlope\Documents\2M\QSense-Examples\C# DLLs\QSenseDotNet\bin\Release\netstandard2.1\publish\QSenseDotNet.pdb

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+	  <AssemblyVersion>1.0.2</AssemblyVersion>
+	  <FileVersion>$(AssemblyVersion)</FileVersion>
+	  <Version>$(AssemblyVersion)</Version>
+	  <Authors>2M Engineering Ltd.</Authors>
+	  <Company>2M Engineering Ltd.</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="QSenseDotNet">
+      <HintPath>..\QSenseDotNet\bin\Release\netstandard2.1\publish\QSenseDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+	
+</Project>

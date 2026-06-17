@@ -1,0 +1,6 @@
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\publish\QSenseDotNet.Dongle.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\publish\QSenseDotNet.Dongle.deps.json
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\publish\QSenseDotNet.Dongle.pdb
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\publish\System.IO.Ports.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\publish\QSenseDotNet.dll
+C:\Users\jlope\Documents\2M\QSense-Examples\QSense .NET DLL\QSenseDotNet.Dongle\bin\Release\netstandard2.1\publish\QSenseDotNet.pdb

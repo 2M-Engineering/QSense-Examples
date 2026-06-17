@@ -2,39 +2,37 @@
 
 This repository contains documentation, APIs and code examples to help you integrate the **QSense wearable IMU motion sensor platform** into your solution.
 
-## Sensor Interfaces  
+## Sensor Interfaces  Doc
 
-The QSense Motion Sensor provides two interfaces: **Core Interface** and **Serial Interface**.  
-Both interfaces enable you to read and write to the sensor’s memory, as well as start and stop data streaming.  
+The **QSense Motion Sensor Interfaces** document provides a complete reference for integrating QSense IMU sensors into software applications through both Bluetooth Low Energy (BLE) and USB serial communication. 
+It describes the device communication protocols, packet-based **Core and Serial interfaces**, memory map structure, configuration registers, time synchronization features, sensor calibration controls, and data logging capabilities. 
 
-The code examples in this folder demonstrate how to:  
-- Create Core and Serial interface packets  
-- Parse incoming packets from QSense sensors  
+The guide also details how to configure sampling rates, streaming behavior, and sensor operating modes, as well as how to parse the different stream data formats (raw sensor data, quaternions, optimized packets, and mixed modes) for real-time or recorded motion analysis. 
+This document serves as the primary developer reference for accessing, configuring, streaming, and downloading data from QSense Motion sensors.
 
 ## Dongle Interface  
 
-The **Dongle Interface** allows you to use the **QSense USB BLE Dongle** to communicate with and control multiple QSense Motion Sensors through a single serial port.  
-This significantly simplifies communication with multiple sensors.  
+This document describes the serial communication interface of the **QSense USB BLE Dongle**, which simplifies the integration of multiple QSense Motion sensors by exposing up to 13 BLE-connected sensors through a single USB serial connection. 
+It explains how to configure and use the dongle, manage sensor discovery and connections, send and receive Core Interface commands, maintain device whitelists, monitor connection status, and control scanning operations. 
 
-The examples in this folder show how to create and parse packets using the Dongle Interface.  
+The guide serves as a companion to the QSense Sensor Interfaces documentation and provides the information required to build applications that communicate with and manage multiple QSense sensors through the QSense Dongle.
 
-## C# APIs  
+## C# DLLs  
 
-You can find our C# implementations of the interfaces as **ready-to-use Dynamic Link Libraries (DLLs)**.  
-These DLL examples are intended for developers who prefer not to implement the QSense Sensor and Dongle interfaces from scratch.  
+This folder contains the source code for the QSense .NET libraries, which provide ready-to-use implementations of the QSense communication interfaces:
 
-The **C# APIs folder** also includes **HTML documentation** for both DLLs, providing detailed information about their classes, methods, and usage.  
+- **QSenseDotNet** – A C# implementation of the QSense Motion Sensor Interface. The communication layer is abstracted through a minimal interface, allowing developers to integrate their preferred BLE or serial communication libraries.
+- **QSenseDotNet.Dongle** – A C# implementation of the QSense USB BLE Dongle Interface, enabling communication with multiple QSense sensors through a single USB connection.
+- **QSenseDotNet.Uart** – A C# implementation of the QSense Motion Sensor Serial Interface for direct communication with sensors over USB.
 
-### QSenseDotNet DLL  
+Both the QSenseDotNet.Dongle and QSenseDotNet.Uart DLLs are examples of how the communication interface can be implemented.
 
-The `QSenseDotNet` DLL implements the **Core Interface** of the QSense Motion Sensor.  
-The communication layer is abstracted into an interface, allowing you to choose your preferred BLE library—or even use your own dongle if desired.  
+These libraries are intended to accelerate development by providing reference implementations of the QSense interfaces, eliminating the need to implement the communication protocols from scratch.
 
-These examples demonstrate how to use the `QSenseDotNet` DLL, which relies on the external library [Plugin.BLE](https://github.com/dotnet-bluetooth-le/dotnet-bluetooth-le) to handle BLE communication.  
+## Swift SDK 
 
-> **Note:** Using `Plugin.BLE` is **not mandatory**. You are free to implement your own BLE communication layer or integrate any other third-party BLE library that fits your project requirements.  
+This folder contains the source code of teh QSenseSwift SDK. Unlike the C# DLLs, this library targets BLE communication only.
 
-### QSenseDotNet.Dongle DLL  
+### Python examples  
 
-The `QSenseDotNet.Dongle` DLL extends `QSenseDotNet` by adding support for serial communication with the **QSense USB BLE Dongle**.  
-The examples in this folder demonstrate how to use the `QSenseDotNet.Dongle` DLL to control multiple devices via the Dongle Interface.  
+These examples demonstrate how to implement parts of the QSense Motion Sensor Interfaces and the QSense USB BLE Dongle interface.

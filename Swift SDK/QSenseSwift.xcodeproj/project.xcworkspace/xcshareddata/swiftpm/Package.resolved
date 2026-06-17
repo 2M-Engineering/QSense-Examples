@@ -1,0 +1,15 @@
+{
+  "originHash" : "a8090d9339e60a3af7b555f8b2e33bb68069a68232f3ba6590567a9ddd4bef92",
+  "pins" : [
+    {
+      "identity" : "swift-event",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MarcAlx/swift-event.git",
+      "state" : {
+        "revision" : "34511f932b7e6684a616d911c9baafae58e756b9",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
