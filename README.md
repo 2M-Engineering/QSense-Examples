@@ -31,7 +31,7 @@ These libraries are intended to accelerate development by providing reference im
 
 ## Swift SDK 
 
-This folder contains the source code of teh QSenseSwift SDK. Unlike the C# DLLs, this library targets BLE communication only.
+This folder contains the source code of the QSenseSwift SDK. Unlike the C# DLLs, this library targets BLE communication only.
 
 ### Python examples  
 
