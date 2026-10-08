@@ -4,7 +4,7 @@ This repository contains documentation, APIs and code examples to help you integ
 
 ## Sensor Interfaces  Doc
 
-The **QSense Motion Sensor Interfaces** document provides a complete reference for integrating QSense IMU sensors into software applications through both Bluetooth Low Energy (BLE) and USB serial communication. 
+The **QSense Motion Sensor Interfaces** document provides a complete reference for integrating QSense IMU sensors into software applications through both wireless BLE and USB serial communication. 
 It describes the device communication protocols, packet-based **Core and Serial interfaces**, memory map structure, configuration registers, time synchronization features, sensor calibration controls, and data logging capabilities. 
 
 The guide also details how to configure sampling rates, streaming behavior, and sensor operating modes, as well as how to parse the different stream data formats (raw sensor data, quaternions, optimized packets, and mixed modes) for real-time or recorded motion analysis. 
