@@ -12,7 +12,7 @@ This document serves as the primary developer reference for accessing, configuri
 
 ## Dongle Interface  
 
-This document describes the serial communication interface of the **QSense USB BLE Dongle**, which simplifies the integration of multiple QSense Motion sensors by exposing up to 13 BLE-connected sensors through a single USB serial connection. 
+This document describes the serial communication interface of the **QSense USB BLE Dongle**, which simplifies the integration of multiple QSense Motion sensors by exposing up to 12 BLE-connected sensors through a single USB serial connection. 
 It explains how to configure and use the dongle, manage sensor discovery and connections, send and receive Core Interface commands, maintain device whitelists, monitor connection status, and control scanning operations. 
 
 The guide serves as a companion to the QSense Sensor Interfaces documentation and provides the information required to build applications that communicate with and manage multiple QSense sensors through the QSense Dongle.
