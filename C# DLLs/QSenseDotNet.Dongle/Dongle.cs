@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace QSenseDotNet.Dongle
 {
-    /// <summary>
-    /// Event handler for communicating the connection to or disconnection from a QSense Sensor
-    /// </summary>
-    /// <param name="sender">Object invoking the event</param>
-    /// <param name="e">Event arguments of type <see cref="ConnectionEventArgs"/></param>
-    public delegate void ConnectionEventHandler(object sender, ConnectionEventArgs e);
-
     public class Dongle
     {
         private const Int32 MAX_NODES = 13;
@@ -37,32 +31,33 @@ namespace QSenseDotNet.Dongle
         private System.Timers.Timer readTimer;
         private bool[] notifyConnection = new bool[MAX_NODES];
         private bool scanStarted = false;
-#endregion
+        #endregion
         /// <summary>
         /// Array of QSense Sensors
         /// </summary>
         public Device[] Devices { get; private set; } = new Device[MAX_NODES];
-
+        public string Comport { get { return parser is null ? "" : ((SerialCommunication)parser).Comport; } }
+        public bool IsScanning { get { return scanStarted; } }
         /// <summary>
         /// Occurs when a sensor was connected
         /// </summary>
-        public event ConnectionEventHandler? SensorConnected;
+        public event EventHandler<int>? SensorConnected;
         /// <summary>
         /// Occurs when a sensor was disconnected
         /// </summary>
-        public event ConnectionEventHandler? SensorDisconnected;
+        public event EventHandler<int>? SensorDisconnected;
         /// <summary>
         /// Occurs when the dongle stops scanning
         /// </summary>
-        public event EventHandler? DongleScanStopped;
+        public event EventHandler DongleScanStopped;
         /// <summary>
         /// Occurs when an exception is thrown during communication with the QSense wireless BLE USB Dongle, either while sending or receiving a package
         /// </summary>
-        public event EventHandler? CommunicationError;
+        public event EventHandler CommunicationError;
         /// <summary>
         /// Occurs when an exception is thrown during communication with the QSense Sensor, either while sending or receiving a package
         /// </summary>
-        public event EventHandler<int>? DeviceCommunicationError;
+        public event EventHandler<int> DeviceCommunicationError;
 
         internal delegate void DongleStatusReceivedEventHandler(object sender, DongleStatusReceivedEventArgs e);
         /// <summary>
@@ -84,7 +79,7 @@ namespace QSenseDotNet.Dongle
             for (Int32 i = 0; i < MAX_NODES; i++)
             {
                 channels[i] = new DongleCommunication(parser, i);
-                Devices[i] = new Device();
+                Devices[i] = new Sensor(); // Initialize devices as sensors by default;
             }
             scanStarted = false;
             GetStatus();
@@ -98,7 +93,7 @@ namespace QSenseDotNet.Dongle
         {
             readTimer.Stop();
             scanStarted = false;
-            for (int i = 0; i < 13; i++) Devices[i].Reset();
+            for (int i = 0; i < 13; i++) Devices[i].Disconnect();
             string s = "" + PREFIX + OPCODE_DISCONNECT + POSTFIX;
             try
             {
@@ -115,9 +110,10 @@ namespace QSenseDotNet.Dongle
         /// </summary>
         public void StartScanning()
         {
-            scanStarted = true;
+            readTimer.Stop();
             string s = "" + PREFIX + OPCODE_CONNECT;
             s += MAX_NODES.ToString("X2");
+            for (int i = 0; i < MAX_NODES; i++) Devices[i] = new Sensor();
             byte[] packet = ASCIIEncoding.ASCII.GetBytes(DEVICE_NAME);
             foreach (byte b in packet) s += b.ToString("X2");
             s += POSTFIX;
@@ -129,14 +125,23 @@ namespace QSenseDotNet.Dongle
             {
                 CommunicationError?.Invoke(this, new EventArgs());
             }
+            readTimer.Start();
         }
         /// <summary>
         /// Triggers the QSense wireless BLE USB Dongle to start scanning for the specified QSense Sensors.
         /// </summary>
         /// <param name="serialNumbers">An array of serial numbers identifying the QSense Sensors to connect to.</param>
-        public void ConnectWhitelist(string[] serialNumbers)
+        public void ConnectWhitelist(string[] serialNumbers, bool scanningForHubs = false)
         {
-            scanStarted = true;
+            readTimer.Stop();
+            if (scanningForHubs)
+            {
+                for (int i = 0; i < MAX_NODES; i++) Devices[i] = new Hub();
+            }
+            else
+            {
+                for (int i = 0; i < MAX_NODES; i++) Devices[i] = new Sensor();
+            }
             string s = "" + PREFIX + OPCODE_CONNECT_WHITELIST;
             s += (serialNumbers.Length).ToString("X2");
             UInt64[] addresses = serialNumbers.Select(sn => Convert.ToUInt64(sn.Split("-")[0], 16)).ToArray();
@@ -162,12 +167,14 @@ namespace QSenseDotNet.Dongle
             {
                 CommunicationError?.Invoke(this, new EventArgs());
             }
+            readTimer.Start();
         }
         /// <summary>
         /// Triggers the QSense wireless BLE USB Dongle to stop scanning
         /// </summary>
         public void StopScanning()
         {
+            readTimer.Stop();
             scanStarted = false;
             string s = "" + PREFIX + OPCODE_STOPSCAN + POSTFIX;
             try
@@ -178,6 +185,7 @@ namespace QSenseDotNet.Dongle
             {
                 CommunicationError?.Invoke(this, new EventArgs());
             }
+            readTimer.Start();
         }
 
         public void Close()
@@ -306,17 +314,21 @@ namespace QSenseDotNet.Dongle
                 }
                 else if (Devices[i].IsConnected)
                 {
-                    Devices[i].Reset();
                     sensorDisconnectedEvents.Add(i);
+                    Devices[i].Disconnect();
                 }
             }
-            if (scanStarted && e.StatusChannels.Any(x => x == Status.Idle))
+            if (!scanStarted && e.StatusChannels.Any(x => x == Status.Scanning)) scanStarted = true;
+            else if (scanStarted && !e.StatusChannels.Any(x => x == Status.Scanning))
+            {
+                scanStarted = false;
                 DongleScanStopped?.Invoke(this, new EventArgs());
+            }
 
             foreach (int handle in sensorConnectedEvents)
-                SensorConnected?.Invoke(this, new ConnectionEventArgs { Handle = handle });
+                SensorConnected?.Invoke(this, handle);
             foreach (int handle in sensorDisconnectedEvents)
-                SensorDisconnected?.Invoke(this, new ConnectionEventArgs { Handle = handle });
+                SensorDisconnected?.Invoke(this, handle);
 
             readTimer.Start();
         }
@@ -327,8 +339,8 @@ namespace QSenseDotNet.Dongle
             {
                 if (Devices[i].SerialNumber == serialNumber)
                 {
-                    Devices[i].Reset();
-                    SensorDisconnected?.Invoke(this, new ConnectionEventArgs { Handle = i });
+                    Devices[i].Disconnect();
+                    SensorDisconnected?.Invoke(this, i);
                     return;
                 }
             }
@@ -349,12 +361,10 @@ namespace QSenseDotNet.Dongle
 
         private void Device_CommunicationError(object sender, EventArgs e)
         {
-            //throw new Exception("Device_CommunicationError");
             for (int i = 0; i < Devices.Length; i++)
             {
                 if (Devices[i] == sender)
                 {
-                    //((SerialCommunication)parser).DiscardInBuffer();
                     DeviceCommunicationError?.Invoke(this, i);
                     return;
                 }
@@ -389,7 +399,7 @@ namespace QSenseDotNet.Dongle
                 ((SerialCommunication)parser)?.Dispose();
             }
         }
-#endregion
+        #endregion
     }
 
     internal enum Status
@@ -403,17 +413,6 @@ namespace QSenseDotNet.Dongle
     {
         public List<Status> StatusChannels { get; set; } = new List<Status>();
         public Int32 MaxDataSize { get; set; }
-    }
-
-    /// <summary>
-    /// Argument for sending the index of a sensor that has connected or disconnected
-    /// </summary>
-    public class ConnectionEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Sensor index
-        /// </summary>
-        public Int32 Handle { get; set; }
     }
 
     internal class DongleCommunication : ICommunication

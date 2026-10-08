@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace QSenseDotNet.Uart
 {
@@ -7,31 +6,24 @@ namespace QSenseDotNet.Uart
 
     public class Uart
     {
+        private const string QSENSE_DESCRIPTION = "QSense";
+        private const string HUB_DESCRIPTION = "QSenseHub";
         #region Fields
         private QSenseDotNet.Device _device;
         private SerialCommunication? parser;
-        private Status Status = Status.Idle;
-        private Int32 MaxDataSize;
         #endregion
 
-        public string Name { get { return _device is null ? "" : _device.Name; } }
-        public string Version { get { return _device is null ? "" : _device.Version; } }
-        public UInt64 Id { get { return _device is null ? 0 : _device.ID; } }
-        public UInt64 Address { get { return _device is null ? 0 : _device.Address; } }
-        public int InterfaceVersion { get { return _device is null ? 0 : int.Parse(_device.Version.Split('.').Last()); } }
-        public UInt32 PacketCount { get { return _device is null ? 0 : _device.PacketCount; } }
+        public QSenseDotNet.Device Device { get { return _device; } }
+        public string Comport { get { return parser.Comport; } }
 
-        public event EventHandler? SensorConnected;
-        public event EventHandler? SensorDisconnected;
-        public event QSenseDotNet.StreamPacketReceivedEventHandler? DownloadPacketReceived;
-        public event EventHandler? DownloadDone;
+        public event EventHandler<string>? SensorConnected;
+        public event EventHandler<string>? SensorDisconnected;
 
-        public Uart()
+        public Uart(string name)
         {
-            _device = new QSenseDotNet.Device();
-            _device.DownloadPacketReceived += (s, e) => DownloadPacketReceived?.Invoke(this, e);
-            _device.DownloadDone += (s, e) => DownloadDone?.Invoke(this, e);
-            _device.InitializationDone += (s, e) => SensorConnected?.Invoke(this, new EventArgs());
+            if (name.Equals(QSENSE_DESCRIPTION)) _device = new QSenseDotNet.Sensor();
+            else if (name.Equals(HUB_DESCRIPTION)) _device = new QSenseDotNet.Hub();
+            _device.InitializationDone += (s, e) => SensorConnected?.Invoke(this, e);
         }
 
         public void Connect(string port)
@@ -39,7 +31,6 @@ namespace QSenseDotNet.Uart
             if (port == "") return;
             this.parser = new SerialCommunication(port);
             parser.Disconnected += Parser_Disconnected;
-            Status = Status.Usb;
             _device.Init(parser);
         }
 
@@ -59,10 +50,9 @@ namespace QSenseDotNet.Uart
         {
             parser?.EnableBootloader();
         }
-
-        public void StartDownload()
+        public void Reboot()
         {
-            _device.StartDownload();
+            parser?.Reboot();
         }
     }
 

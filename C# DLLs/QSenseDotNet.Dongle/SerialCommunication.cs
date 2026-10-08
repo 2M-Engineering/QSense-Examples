@@ -10,6 +10,7 @@ namespace QSenseDotNet.Dongle
         private const int blockLimit = 237;
         private byte[] buffer = new byte[blockLimit];
         private Action ReadAsync;
+        public string Comport { get { return port.PortName; } }
 
         public SerialCommunication(string portName)
         {

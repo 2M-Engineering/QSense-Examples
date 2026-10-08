@@ -1,12 +1,21 @@
 ﻿namespace QSenseDotNet
 {
+    public enum DeviceType
+    {
+        Sensor = 0,
+        Hub = 1
+    }
+
     public enum DataMode
     {
         Mixed = 0,
         Raw,
         Quat,
         Optimized,
-        QuatMag
+        QuatMag,
+        Quat100Mag50,
+        Quat100Acc50,
+        Gyro100Acc100
     }
 
     public enum Algorithms
@@ -42,6 +51,18 @@
         Hz200 = 9,
         Hz400 = 10,
         Hz800 = 11
+    }
+
+    public enum Buffering
+    {
+        _1 = 1,
+        _2 = 2,
+        _4 = 4,
+        _5 = 5,
+        _8 = 8,
+        _10 = 10,
+        _20 = 11,
+        _40 = 12
     }
 
     public enum SensitivityAcc

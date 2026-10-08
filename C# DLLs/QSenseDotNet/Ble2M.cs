@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace QSenseDotNet
 {
@@ -11,12 +12,14 @@ namespace QSenseDotNet
             Idle = 0,
             Reading,
             Writing,
-            Streaming
+            Streaming,
+            RelayReading,
         }
 
         private State state;
         private byte[] readBuffer = new byte[0];
         private UInt32 readAddress = 0;
+        private UInt32 tmp_readAddress = 0;
         private Queue<BleQueueData> BleQueue = new Queue<BleQueueData>();
         private System.Timers.Timer timeoutTimer;
 
@@ -25,6 +28,7 @@ namespace QSenseDotNet
 
         public event EventHandler<Ble2MTxEventArgs>? Ble2MTxEvent;
         internal event EventHandler<Ble2MDataEventArgs>? Ble2MDataEvent;
+        internal event EventHandler<Ble2MRelayDataEventArgs>? Ble2MRelayDataEvent;
         internal event EventHandler<Ble2MDataEventArgs>? Ble2MWriteCompletEvent;
 
         internal Ble2M()
@@ -70,15 +74,25 @@ namespace QSenseDotNet
                     case Packet.Opcode.Abort:
                         Abort();
                         break;
+                    case Packet.Opcode.RelayRead:
+                        RelayReadMemory(qData.Data[0], qData.Address, qData.Length);
+                        break;
+                    case Packet.Opcode.RelayWrite:
+                        RelayWriteMemory(qData.Data[0], qData.Address, qData.Data.Skip(1).ToArray());
+                        break;
+                    default:
+                        break;
                 }
             }
         }
 
         internal void ReadMemory(UInt32 address, UInt16 length)
         {
-            if (state == State.Streaming) return;
-            
-            if (state != State.Idle)
+            if (state == State.Streaming)
+            {
+                // ignore
+            }
+            else if (state != State.Idle)
             {
                 BleQueue.Enqueue(new BleQueueData(Packet.Opcode.Read, address, Array.Empty<byte>(), length));
                 timeoutTimer.Start();
@@ -181,6 +195,74 @@ namespace QSenseDotNet
             }
         }
 
+        internal void WriteMemoryWithoutResponse(UInt32 address, byte[] Data)
+        {
+            int length = Math.Min(MaxPacketSize - 7, Data.Length);
+            byte[] packetData = new byte[length];
+            Array.Copy(Data, 0, packetData, 0, packetData.Length);
+            Ble2MTxEventArgs args = new Ble2MTxEventArgs
+            {
+                Packet = (new Packet(Packet.Opcode.DataWithoutResponse, address, (ushort)packetData.Length, packetData)).ToArray()
+            };
+            if (Ble2MTxEvent != null)
+                Ble2MTxEvent.Invoke(this, args);
+        }
+
+        internal void RelayWriteMemory(byte handle, UInt32 address, byte[] Data, bool queue = false)
+        {
+            if (state != State.Idle || queue)
+            {
+                List<byte> data = new List<byte> { handle };
+                data.AddRange(Data);
+                BleQueue.Enqueue(new BleQueueData(Packet.Opcode.RelayWrite, address, data.ToArray(), (ushort)Data.Length));
+            }
+            else
+            {
+                byte[] HandleData = new byte[Data.Length + 1];
+                Array.Copy(Data, 0, HandleData, 1, Data.Length);
+                HandleData[0] = handle;
+
+                int length = Math.Min(MaxPacketSize - 7, HandleData.Length);
+                byte[] packetData = new byte[HandleData.Length];
+                Array.Copy(HandleData, 0, packetData, 0, packetData.Length);
+                Ble2MTxEventArgs args = new Ble2MTxEventArgs
+                {
+                    Packet = (new Packet(Packet.Opcode.RelayWrite, address, (ushort)packetData.Length, packetData)).ToArray()
+                };
+                if (Ble2MTxEvent != null)
+                    Ble2MTxEvent.Invoke(this, args);
+            }
+        }
+
+        internal void RelayReadMemory(byte handle, UInt32 address, UInt16 length, bool queue = false)
+        {
+            if (state != State.Idle || queue)
+            {
+                BleQueue.Enqueue(new BleQueueData(Packet.Opcode.RelayRead, address, new byte[] { handle }, length));
+            }
+            else
+            {
+                if (handle == 255)
+                {
+                    tmp_readAddress = address;
+                }
+                else
+                {
+                    tmp_readAddress = 0;
+                }
+                timeoutTimer.Start();
+                state = State.RelayReading;
+                readAddress = address;
+                readBuffer = new byte[length + 1];
+                Ble2MTxEventArgs args = new Ble2MTxEventArgs
+                {
+                    Packet = (new Packet(Packet.Opcode.RelayRead, address, (ushort)(length + 1), new byte[] { handle })).ToArray()
+                };
+                if (Ble2MTxEvent != null)
+                    Ble2MTxEvent.Invoke(this, args);
+            }
+        }
+
         internal void Ble2MRxEvent(byte[] Data)
         {
             Packet rxPacket = new Packet(Data);
@@ -188,16 +270,28 @@ namespace QSenseDotNet
             {
                 return;
             }
-            if (rxPacket.Address == MemMap.MEM_MAP_CONF_ADDR && rxPacket.Address > readAddress)
+            int extraByte = rxPacket.Type == Packet.Opcode.RelayRead || rxPacket.Type == Packet.Opcode.RelayWrite ? 1 : 0;
+            if ((rxPacket.Address == MemMap.MEM_MAP_CONF_ADDR || rxPacket.Address == MemMap.MEM_MAP_DATA_ADDR) && rxPacket.Address > readAddress)
             {
+                // We have received a stream packet when we don't expect it
                 return;
             }
-            else if (rxPacket.Address < readAddress || rxPacket.Address + rxPacket.Length > readAddress + readBuffer.Length)
+            else if (rxPacket.Address < readAddress || rxPacket.Address + rxPacket.Length > readAddress + readBuffer.Length + extraByte)
             {
                 throw new Exception("Corrupt packet received");
             }
 
             timeoutTimer.Stop();
+            bool wasBroadcasted = false;
+            State tmp_state = state;
+            uint tmp_address = readAddress;
+            if (rxPacket.Type == Packet.Opcode.RelayWrite && state != State.RelayReading)
+            {
+                wasBroadcasted = true;
+                state = State.RelayReading;
+                readAddress = tmp_readAddress;
+
+            }
 
             switch (state)
             {
@@ -206,22 +300,33 @@ namespace QSenseDotNet
 
                     if (rxPacket.Address + rxPacket.Length == readAddress + readBuffer.Length)
                     {
-                        state = State.Idle;
                         Ble2MDataEventArgs args = new Ble2MDataEventArgs();
                         args.Address = readAddress;
                         args.Data = readBuffer;
                         Ble2MDataEvent?.Invoke(this, args);
+                        state = State.Idle;
                     }
                     break;
-
+                case State.RelayReading:
+                    Array.Copy(rxPacket.Data, 0, readBuffer, rxPacket.Address - readAddress, rxPacket.Length);
+                    if (rxPacket.Address + rxPacket.Length == readAddress + readBuffer.Length)
+                    {
+                        Ble2MRelayDataEventArgs args = new Ble2MRelayDataEventArgs();
+                        args.Address = readAddress;
+                        args.Handle = readBuffer[0];
+                        args.Data = readBuffer.Skip(1).ToArray();
+                        Ble2MRelayDataEvent?.Invoke(this, args);
+                        state = State.Idle;
+                    }
+                    break;
                 case State.Writing:
                     if (rxPacket.Address + rxPacket.Length == readAddress + readBuffer.Length)
                     {
-                        state = State.Idle;
                         Ble2MDataEventArgs args = new Ble2MDataEventArgs();
                         args.Address = readAddress;
                         args.Data = readBuffer;
                         Ble2MWriteCompletEvent?.Invoke(this, args);
+                        state = State.Idle;
                     }
                     else
                     {
@@ -237,7 +342,7 @@ namespace QSenseDotNet
                     break;
 
                 case State.Streaming:
-                    if (rxPacket.Address == MemMap.MEM_MAP_CONF_ADDR)
+                    if ((rxPacket.Address == MemMap.MEM_MAP_CONF_ADDR || rxPacket.Address == MemMap.MEM_MAP_DATA_ADDR))
                     {
                         Array.Copy(rxPacket.Data, 0, readBuffer, (int)(rxPacket.Address - readAddress), rxPacket.Length);
 
@@ -255,9 +360,14 @@ namespace QSenseDotNet
                     {
                         Debug.WriteLine("Corrupt BLE Packet");
                     }
-                break;
+                    break;
             }
 
+            if (wasBroadcasted)
+            {
+                state = tmp_state;
+                readAddress = tmp_address;
+            }
 
             BleDequeue();
 
@@ -267,13 +377,20 @@ namespace QSenseDotNet
 
     internal class Ble2MTxEventArgs : EventArgs
     {
-        internal byte[] Packet { get; set; } = new byte[0];
+        public byte[] Packet { get; set; } = new byte[0];
     }
 
     internal class Ble2MDataEventArgs : EventArgs
     {
-        internal UInt32 Address { get; set; }
-        internal byte[] Data { get; set; } = new byte[0];
+        public UInt32 Address { get; set; }
+        public byte[] Data { get; set; } = new byte[0];
+    }
+
+    internal class Ble2MRelayDataEventArgs : EventArgs
+    {
+        public int Handle { get; set; }
+        public UInt32 Address { get; set; }
+        public byte[] Data { get; set; } = new byte[0];
     }
 
     internal class BleQueueData

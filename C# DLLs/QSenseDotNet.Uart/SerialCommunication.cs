@@ -11,6 +11,7 @@ namespace QSenseDotNet.Uart
         private const char OPCODE_RECEIVE = 'R';
         private const char OPCODE_UPGRADE = 'U';
         private const char OPCODE_TRANSMIT = 'T';
+        private const char OPCODE_REBOOT = 'B'; /* reset */
 
         private SerialPort port;
         private Int32 packetIndex = 0;
@@ -21,6 +22,7 @@ namespace QSenseDotNet.Uart
         public event EventHandler? Disconnected;
 
         public bool IsOpen { get { return port.IsOpen; } }
+        public string Comport { get { return port.PortName; } }
 
         public SerialCommunication(string portName)
         {
@@ -33,7 +35,7 @@ namespace QSenseDotNet.Uart
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (port.IsOpen) 
+            if (port.IsOpen)
             {
                 string s = port.ReadExisting();
                 ParseData(s);
@@ -93,6 +95,19 @@ namespace QSenseDotNet.Uart
             try
             {
                 string s = "" + PREFIX + OPCODE_UPGRADE + POSTFIX;
+                if (port.IsOpen)
+                    port.Write(s);
+            }
+            catch (Exception)
+            {
+                Disconnected?.Invoke(this, new EventArgs());
+            }
+        }
+        public void Reboot()
+        {
+            try
+            {
+                string s = "" + PREFIX + OPCODE_REBOOT + POSTFIX;
                 if (port.IsOpen)
                     port.Write(s);
             }

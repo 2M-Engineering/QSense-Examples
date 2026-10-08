@@ -175,7 +175,7 @@ internal class Raw9Dof
             let offset : Int = includeAccGyr ? 12 : 0;
             MagX = Float.init(Utilities.ToInt16(data: buffer, startIndex: position + offset)) * MAG_SCALE;
             MagY = Float.init(Utilities.ToInt16(data: buffer, startIndex: position + offset + 2)) * MAG_SCALE;
-            MagZ = Float.init(Utilities.ToInt16(data: buffer, startIndex: position + offset + 3)) * MAG_SCALE;
+            MagZ = Float.init(Utilities.ToInt16(data: buffer, startIndex: position + offset + 4)) * MAG_SCALE;
         }
     }
 }

@@ -11,6 +11,9 @@ namespace QSenseDotNet
             Data,
             Abort,
             Stream,
+            DataWithoutResponse,
+            RelayRead,
+            RelayWrite,
             Hibernate = 0xFF
         }
 
@@ -31,20 +34,10 @@ namespace QSenseDotNet
         internal Packet(Byte[] array)
         {
             Type = (Opcode)array[0];
-            if (Type == Opcode.Stream)
-            {
-                Address = MemMap.MEM_MAP_CONF_ADDR;
-                Length = BitConverter.ToUInt16(array, 1);
-                Data = new Byte[array.Length - 3];
-                Array.Copy(array, 3, Data, 0, Data.Length);
-            }
-            else
-            {
-                Address = BitConverter.ToUInt32(array, 1);
-                Length = BitConverter.ToUInt16(array, 5);
-                Data = new Byte[array.Length - 7];
-                Array.Copy(array, 7, Data, 0, Data.Length);
-            }
+            Address = BitConverter.ToUInt32(array, 1);
+            Length = BitConverter.ToUInt16(array, 5);
+            Data = new Byte[array.Length - 7];
+            Array.Copy(array, 7, Data, 0, Data.Length);
         }
 
         internal Byte[] ToArray()

@@ -1,10 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace QSenseDotNet
 {
     public static class Utilities
     {
+        public static UInt32 UnixTimeStampFromDateTime(DateTime t)
+        {
+            return (UInt32)(t.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))).TotalSeconds;
+        }
+        public static DateTime UnixTimeStampToDateTime(UInt32 unixTimeStamp)
+        {
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp);
+            return dtDateTime;
+        }
+
         /// <summary>
         /// Converts a string of hex values into a byte array.
         /// </summary>
