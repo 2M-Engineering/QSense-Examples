@@ -1,13 +1,17 @@
 cff-version: 1.2.0
 message: If you use the QSense Motion platform in your research, please cite it as below.
 title: QSense Motion - wireless IMU motion capture platform
-abstract: Documentation, APIs and code examples for integrating the QSense wireless IMU motion sensor platform, covering the sensor and dongle interfaces, C#/.NET and Swift libraries and Python examples.
+abstract: Documentation, APIs and code examples for integrating the QSense wireless IMU motion sensor platform, covering the sensor and dongle interfaces, C#/.NET and Swift libraries and Python examples. Platform documentation, specifications and support are available at https://qsense-motion.com
 type: software
 authors:
   - name: 2M Engineering B.V.
     city: Valkenswaard
     country: NL
     website: https://www.2mel.nl
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23769157
+    description: Concept DOI representing all versions of QSense Motion
 url: https://qsense-motion.com
 repository-code: https://github.com/2M-Engineering/QSense-Examples
 license: MIT
