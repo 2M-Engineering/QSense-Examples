@@ -36,3 +36,27 @@ This folder contains the source code of the QSenseSwift SDK. Unlike the C# DLLs,
 ### Python examples  
 
 These examples demonstrate how to implement parts of the QSense Motion Sensor Interfaces and the QSense USB BLE Dongle interface.
+
+## Platform capabilities
+
+The QSense Motion platform currently supports:
+
+- Up to 18 synchronized sensors using two wireless BLE dongles, or 12 with a single dongle
+- On-sensor local memory recording, running across all sensors in a group simultaneously, so a subject is not tied to a receiver within wireless BLE range
+- The FieldSync HUB wearable recorder, fully integrated into the QSense software for centralized recording: 9 external QSense IMUs plus the HUB itself, for 10 measurement points in total
+- Raw accelerometer, gyroscope and magnetometer output alongside fused orientation data
+- Time synchronization below 60 microseconds between sensors
+
+## More about QSense Motion
+
+- [Platform overview](https://qsense-motion.com/qsense-motion-platform/)
+- [Motion sensing API for developers](https://qsense-motion.com/support/motion-sensing-api-for-developers/)
+- [QSense 9DOF IMU sensor specifications](https://qsense-motion.com/product/qsense-9dof-imu-sensor/)
+- [IMU sensor modules and mounting options](https://qsense-motion.com/imu-sensor-modules/)
+- [Support and documentation](https://qsense-motion.com/support/)
+
+QSense Motion is a professional wireless IMU motion platform developed by [2M Engineering](https://www.2mel.nl) for biomechanics research, rehabilitation, sports science, industry and defense applications. It is also used as an OEM sensor platform inside third-party products, such as the ORYX GO system by ORYX Movement Solutions.
+
+## Citing QSense Motion
+
+If you use QSense Motion in published research, please cite it using the metadata in [CITATION.cff](CITATION.cff), or through the Cite this repository button on this repository page.
